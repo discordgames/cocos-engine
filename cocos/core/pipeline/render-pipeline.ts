@@ -249,7 +249,7 @@ export abstract class RenderPipeline extends Asset implements IPipelineEvent {
     protected _macros: MacroRecord = {};
     protected _constantMacros = '';
     protected _profiler: Model | null = null;
-    protected _geometryRenderer = new GeometryRenderer();
+    protected _geometryRenderer : GeometryRenderer | null = null;//new GeometryRenderer();
     protected declare _pipelineSceneData: PipelineSceneData;
     protected _pipelineRenderData: PipelineRenderData | null = null;
     protected _renderPasses = new Map<ClearFlags, RenderPass>();
@@ -387,7 +387,7 @@ export abstract class RenderPipeline extends Asset implements IPipelineEvent {
         this._macros.CC_USE_HDR = this._pipelineSceneData.isHDR;
         this._generateConstantMacros();
         this._pipelineSceneData.activate(this._device, this);
-        this._geometryRenderer.activate(this._device, this);
+        this._geometryRenderer?.activate(this._device, this, { maxLines: 0, maxDashedLines: 0, maxTriangles: 0 });
 
         for (let i = 0; i < this._flows.length; i++) {
             this._flows[i].activate(this);
@@ -640,7 +640,7 @@ export abstract class RenderPipeline extends Asset implements IPipelineEvent {
         this._commandBuffers.length = 0;
         this._pipelineUBO.destroy();
         this._pipelineSceneData?.destroy();
-        this._geometryRenderer.destroy();
+        this._geometryRenderer?.destroy();
 
         return super.destroy();
     }
