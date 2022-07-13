@@ -85,6 +85,14 @@ export class ParticleSystem extends RenderableComponent {
     }
 
     /**
+     * @zh 。
+     */
+    @serializable
+    @displayOrder(10)
+    @tooltip('i18n:particle_system.randomSeedOverride')
+    public randomSeedOverride = 0;
+
+    /**
      * @zh 粒子初始颜色。
      */
     @type(GradientRange)
@@ -1248,7 +1256,7 @@ export class ParticleSystem extends RenderableComponent {
             particle.startLifetime = this.startLifetime.evaluate(loopDelta, rand)! + dt;
             particle.remainingLifetime = particle.startLifetime;
 
-            particle.randomSeed = randomRangeInt(0, 233280);
+            particle.randomSeed = this.randomSeedOverride === 0 ? randomRangeInt(0, 233280) : this.randomSeedOverride;
             particle.loopCount++;
 
             this.processor.setNewParticle(particle);
