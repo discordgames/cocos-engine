@@ -676,6 +676,7 @@ module.exports = {
         aabbHalfY: 'Half height of the emitter bounding box',
         aabbHalfZ: 'Half length of the emitter bounding box',
         dataCulling: 'Cull disabled data if true',
+        randomSeedOverride: 'Any value other than 0 will override the automatic random seed'
     },
     mask: {
         type: 'The mask type',

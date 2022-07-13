@@ -88,6 +88,14 @@ export class ParticleSystem extends ModelRenderer {
     }
 
     /**
+     * @zh 0 以外的任何值都将覆盖自动随机种子。
+     */
+    @serializable
+    @displayOrder(10)
+    @tooltip('i18n:particle_system.randomSeedOverride')
+    public randomSeedOverride = 0;
+
+    /**
      * @zh 粒子初始颜色。
      */
     @type(GradientRange)
@@ -1289,7 +1297,7 @@ export class ParticleSystem extends ModelRenderer {
             particle.startLifetime = this.startLifetime.evaluate(loopDelta, rand)! + dt;
             particle.remainingLifetime = particle.startLifetime;
 
-            particle.randomSeed = randomRangeInt(0, 233280);
+            particle.randomSeed = this.randomSeedOverride === 0 ? randomRangeInt(0, 233280) : this.randomSeedOverride;
             particle.loopCount++;
 
             this.processor.setNewParticle(particle);
