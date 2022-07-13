@@ -667,6 +667,7 @@ module.exports = {
         aabbHalfY: '设置发射器包围盒半高',
         aabbHalfZ: '设置发射器包围盒半长',
         dataCulling: '是否剔除非 enable 的模块数据',
+        randomSeedOverride: '0 以外的任何值都将覆盖自动随机种子',
     },
     mask: {
         type: '遮罩类型',
