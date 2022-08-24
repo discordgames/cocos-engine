@@ -515,6 +515,9 @@ class ScreenAdapter extends EventTarget {
             const winWidth = window.innerWidth;
             const winHeight = window.innerHeight;
             if (this.isFrameRotated) {
+                console.log(
+                    `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(90deg)`
+                );
                 this._gameFrame.style["-webkit-transform"] = "rotate(90deg)";
                 this._gameFrame.style.transform = "rotate(90deg)";
                 this._gameFrame.style["-webkit-transform-origin"] =
@@ -524,6 +527,9 @@ class ScreenAdapter extends EventTarget {
                 this._gameFrame.style.width = `${winHeight}px`;
                 this._gameFrame.style.height = `${winWidth}px`;
             } else {
+                console.log(
+                    `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(0deg)`
+                );
                 this._gameFrame.style["-webkit-transform"] = "rotate(0deg)";
                 this._gameFrame.style.transform = "rotate(0deg)";
                 // TODO
@@ -579,7 +585,9 @@ class ScreenAdapter extends EventTarget {
         const width = window.innerWidth;
         const height = window.innerHeight;
         const isBrowserLandscape = width > height;
+        const isSquare = width === height;
         this.isFrameRotated =
+            !isSquare &&
             systemInfo.isMobile &&
             ((isBrowserLandscape && orientation === Orientation.PORTRAIT) ||
                 (!isBrowserLandscape && orientation === Orientation.LANDSCAPE));
