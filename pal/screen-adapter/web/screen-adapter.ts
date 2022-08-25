@@ -93,11 +93,11 @@ class ScreenAdapter extends EventTarget {
             return;
         }
         const css = this._convertToSizeInCssPixels(size);
-        console.log(
-            `screen adapter set windowSize: ${size.toString()} vs css ${css.toString()} dpr ${
-                this.devicePixelRatio
-            }`
-        );
+        // console.log(
+        //     `screen adapter set windowSize: ${size.toString()} vs css ${css.toString()} dpr ${
+        //         this.devicePixelRatio
+        //     }`
+        // );
         this._resizeFrame(css);
     }
 
@@ -116,7 +116,7 @@ class ScreenAdapter extends EventTarget {
         if (v === this._resolutionScale) {
             return;
         }
-        console.log(`screen adapter set resolutionScale: ${v}`);
+        //console.log(`screen adapter set resolutionScale: ${v}`);
 
         this._resolutionScale = v;
         this._cbToUpdateFrameBuffer?.();
@@ -127,18 +127,18 @@ class ScreenAdapter extends EventTarget {
     }
     public set orientation(value: Orientation) {
         if (this._orientation === value) {
-            console.log(
-                `screen adapter set orientation -- same: ${
-                    value === Orientation.PORTRAIT ? "portrait" : "landscape"
-                }`
-            );
+            // console.log(
+            //     `screen adapter set orientation -- same: ${
+            //         value === Orientation.PORTRAIT ? "portrait" : "landscape"
+            //     }`
+            // );
             return;
         }
-        console.log(
-            `screen adapter set orientation -- new: ${
-                value === Orientation.PORTRAIT ? "portrait" : "landscape"
-            }`
-        );
+        // console.log(
+        //     `screen adapter set orientation -- new: ${
+        //         value === Orientation.PORTRAIT ? "portrait" : "landscape"
+        //     }`
+        // );
         this._orientation = value;
         this._updateFrameState();
     }
@@ -347,18 +347,18 @@ class ScreenAdapter extends EventTarget {
         this.orientation = orientationMap[options.configOrientation];
         this._exactFitScreen = options.exactFitScreen;
 
-        console.log(
-            `screen adapter init -- orientation ${
-                this.orientation === Orientation.PORTRAIT
-                    ? "portrait"
-                    : "landscape"
-            }  exact fit: ${this._exactFitScreen}`
-        );
+        // console.log(
+        //     `screen adapter init -- orientation ${
+        //         this.orientation === Orientation.PORTRAIT
+        //             ? "portrait"
+        //             : "landscape"
+        //     }  exact fit: ${this._exactFitScreen}`
+        // );
         this._resizeFrame();
     }
 
     public requestFullScreen(): Promise<void> {
-        console.log(`screen adapter request full screen`);
+        //console.log(`screen adapter request full screen`);
         return new Promise((resolve, reject) => {
             if (this.isFullScreen) {
                 resolve();
@@ -390,7 +390,7 @@ class ScreenAdapter extends EventTarget {
         });
     }
     public exitFullScreen(): Promise<void> {
-        console.log(`screen adapter exit full screen`);
+        //console.log(`screen adapter exit full screen`);
         return new Promise((resolve, reject) => {
             const requestPromise = document[this._fn.exitFullscreen]();
             if (window.Promise && requestPromise instanceof Promise) {
@@ -413,7 +413,7 @@ class ScreenAdapter extends EventTarget {
         });
 
         window.addEventListener("resize", () => {
-            console.log(`screen adapter resize event`);
+            //console.log(`screen adapter resize event`);
             if (!this.handleResizeEvent) {
                 return;
             }
@@ -437,12 +437,12 @@ class ScreenAdapter extends EventTarget {
             updateDPRChangeListener();
         }
         window.addEventListener("orientationchange", () => {
-            console.log(`screen adapter orientation change event`);
+            //console.log(`screen adapter orientation change event`);
             if (this._orientationChangeTimeoutId !== -1) {
                 clearTimeout(this._orientationChangeTimeoutId);
             }
             this._orientationChangeTimeoutId = setTimeout(() => {
-                console.log(`screen adapter perform orientation change event`);
+                //console.log(`screen adapter perform orientation change event`);
                 if (!this.handleResizeEvent) {
                     return;
                 }
@@ -454,7 +454,7 @@ class ScreenAdapter extends EventTarget {
         });
 
         document.addEventListener(this._fn.fullscreenchange, () => {
-            console.log(`screen adapter on fullscreen change event`);
+            //console.log(`screen adapter on fullscreen change event`);
             this._onFullscreenChange?.();
             this.emit("fullscreen-change");
         });
@@ -490,16 +490,16 @@ class ScreenAdapter extends EventTarget {
         }
 
         const fullscreenTarget = this._getFullscreenTarget();
-        console.log(
-            `screen adapater resizeFrame - window.innerWidth: [${
-                window.innerWidth
-            }] window.innerHeight:[${
-                window.innerHeight
-            }] this._windowType: [${this.getWindowType()}]
-            fullscreen client w,h [${fullscreenTarget?.clientWidth},${
-                fullscreenTarget?.clientHeight
-            }]`
-        );
+        // console.log(
+        //     `screen adapater resizeFrame - window.innerWidth: [${
+        //         window.innerWidth
+        //     }] window.innerHeight:[${
+        //         window.innerHeight
+        //     }] this._windowType: [${this.getWindowType()}]
+        //     fullscreen client w,h [${fullscreenTarget?.clientWidth},${
+        //         fullscreenTarget?.clientHeight
+        //     }]`
+        // );
         // Center align the canvas
         this._gameFrame.style.display = "flex";
         this._gameFrame.style["justify-content"] = "center";
@@ -515,9 +515,9 @@ class ScreenAdapter extends EventTarget {
             const winWidth = window.innerWidth;
             const winHeight = window.innerHeight;
             if (this.isFrameRotated) {
-                console.log(
-                    `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(90deg)`
-                );
+                // console.log(
+                //     `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(90deg)`
+                // );
                 this._gameFrame.style["-webkit-transform"] = "rotate(90deg)";
                 this._gameFrame.style.transform = "rotate(90deg)";
                 this._gameFrame.style["-webkit-transform-origin"] =
@@ -527,9 +527,9 @@ class ScreenAdapter extends EventTarget {
                 this._gameFrame.style.width = `${winHeight}px`;
                 this._gameFrame.style.height = `${winWidth}px`;
             } else {
-                console.log(
-                    `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(0deg)`
-                );
+                // console.log(
+                //     `screen adapter resizeFrame - isFrameRotated: [${this.isFrameRotated}] - setting rotate(0deg)`
+                // );
                 this._gameFrame.style["-webkit-transform"] = "rotate(0deg)";
                 this._gameFrame.style.transform = "rotate(0deg)";
                 // TODO
@@ -592,13 +592,13 @@ class ScreenAdapter extends EventTarget {
             ((isBrowserLandscape && orientation === Orientation.PORTRAIT) ||
                 (!isBrowserLandscape && orientation === Orientation.LANDSCAPE));
 
-        console.log(
-            `screen adapter update frame state: orientation [${
-                orientation === Orientation.PORTRAIT ? "portrait" : "landscape"
-            }] width: [${width}] height: [${height}] isBrowserLandscape: [${isBrowserLandscape}] is frame rotated: [${
-                this.isFrameRotated
-            }]`
-        );
+        // console.log(
+        //     `screen adapter update frame state: orientation [${
+        //         orientation === Orientation.PORTRAIT ? "portrait" : "landscape"
+        //     }] width: [${width}] height: [${height}] isBrowserLandscape: [${isBrowserLandscape}] is frame rotated: [${
+        //         this.isFrameRotated
+        //     }]`
+        // );
     }
     private _updateContainer() {
         if (!this._gameContainer) {
