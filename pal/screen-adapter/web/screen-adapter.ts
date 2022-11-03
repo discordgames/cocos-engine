@@ -150,25 +150,25 @@ class ScreenAdapter extends EventTarget {
                     .getComputedStyle(document.documentElement)
                     .getPropertyValue('--safe-area-top'),
                 10,
-            ) || 0,
+            ) * this.devicePixelRatio || 0,
             bottom: parseInt(
                 window
                     .getComputedStyle(document.documentElement)
                     .getPropertyValue('--safe-area-bottom'),
                 10,
-            ) || 0,
+            ) * this.devicePixelRatio || 0,
             left: parseInt(
                 window
                     .getComputedStyle(document.documentElement)
                     .getPropertyValue('--safe-area-left'),
                 10,
-            ) || 0,
+            ) * this.devicePixelRatio || 0,
             right: parseInt(
                 window
                     .getComputedStyle(document.documentElement)
                     .getPropertyValue('--safe-area-right'),
                 10,
-            ) || 0,
+            ) * this.devicePixelRatio || 0,
         };
     }
     public get isProportionalToFrame (): boolean {
