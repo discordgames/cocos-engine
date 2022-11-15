@@ -610,11 +610,11 @@ class ScreenAdapter extends EventTarget {
         const height = window.innerHeight;
         const isBrowserLandscape = width > height;
         const isSquare = width === height;
-        this.isFrameRotated =
-            !isSquare &&
-            systemInfo.isMobile &&
-            ((isBrowserLandscape && orientation === Orientation.PORTRAIT) ||
-                (!isBrowserLandscape && orientation === Orientation.LANDSCAPE));
+        this.isFrameRotated = false;
+        // !isSquare &&
+        // systemInfo.isMobile &&
+        // ((isBrowserLandscape && orientation === Orientation.PORTRAIT) ||
+        //     (!isBrowserLandscape && orientation === Orientation.LANDSCAPE));
 
         console.log(
             `screen adapter update frame state: orientation [${
