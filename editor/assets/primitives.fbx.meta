@@ -23,6 +23,22 @@
         "triangleCount": 2380
       }
     },
+    "8d883": {
+      "importer": "gltf-material",
+      "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@8d883",
+      "displayName": "",
+      "id": "8d883",
+      "name": "lambert1.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
     "801ec": {
       "importer": "gltf-mesh",
       "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@801ec",
@@ -149,22 +165,6 @@
         "triangleCount": 12
       }
     },
-    "8d883": {
-      "importer": "gltf-material",
-      "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@8d883",
-      "displayName": "",
-      "id": "8d883",
-      "name": "lambert1.material",
-      "userData": {
-        "gltfIndex": 0
-      },
-      "ver": "1.0.14",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "aae0f": {
       "importer": "gltf-scene",
       "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@aae0f",
@@ -211,7 +211,7 @@
         "1263d74c-8167-4928-91a6-4e2672411f47@a804a"
       ],
       "materials": [
-        "1263d74c-8167-4928-91a6-4e2672411f47@8d883"
+        "e8e46163-baa2-4c01-a0ba-8b67a74a83a3"
       ],
       "scenes": [
         "1263d74c-8167-4928-91a6-4e2672411f47@aae0f"
@@ -245,6 +245,8 @@
           "faceCount": 0.1
         }
       ]
-    }
+    },
+    "dumpMaterials": true,
+    "materialDumpDir": "db://assets/game/art/materials/export_trash_mats"
   }
 }
