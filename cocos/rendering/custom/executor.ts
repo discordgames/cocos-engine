@@ -1092,7 +1092,7 @@ class DeviceRenderPass {
             height = resDesc.height;
             break;
         }
-        const needRebuild = (width !== currentWidth) || (height !== currentHeight);
+        const needRebuild = (width !== currentWidth) || (height !== currentHeight) || this._framebuffer.needsRebuild;
 
         for (const [resName, rasterV] of this._rasterInfo.pass.rasterViews) {
             let deviceTex = context.deviceTextures.get(resName)!;
