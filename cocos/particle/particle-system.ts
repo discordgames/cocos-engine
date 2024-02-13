@@ -908,6 +908,7 @@ export class ParticleSystem extends ModelRenderer {
         }
         if (this._boundingBox) {
             this._boundingBox = null;
+            console.error(`detach from scene: ${this.node.name} bounding box is null`);
         }
         if (this._culler) {
             this._culler.clear();
@@ -1109,6 +1110,7 @@ export class ParticleSystem extends ModelRenderer {
         if (this._trailModule) this._trailModule.onDisable();
         if (this._boundingBox) {
             this._boundingBox = null;
+            console.log(`disable particle system: ${this.node.name}`);
         }
         if (this._culler) {
             this._culler.clear();
@@ -1118,10 +1120,12 @@ export class ParticleSystem extends ModelRenderer {
     }
 
     private _calculateBounding (forceRefresh: boolean): void {
+        console.log(`_calculateBounding: ${this.node.name}: ${forceRefresh}`, this._boundingBox);
         if (this._boundingBox) {
             if (!this._culler) {
                 this._culler = new ParticleCuller(this);
             }
+            console.log(`_calculateBounding 1: ${this.node.name}`);
             this._culler.calculatePositions();
             geometry.AABB.fromPoints(this._boundingBox, this._culler.minPos, this._culler.maxPos);
             if (forceRefresh) {

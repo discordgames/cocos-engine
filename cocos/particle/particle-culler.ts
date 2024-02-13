@@ -293,6 +293,7 @@ export class ParticleCuller {
     }
 
     public calculatePositions (): void {
+        console.log(`calculatePositions: ${this._node.name}`);
         this._emit(this._particleSystem.capacity, 0, this._particlesAll);
         const rand = isCurveTwoValues(this._particleSystem.startLifetime) ? pseudoRandom(randomRangeInt(0, bits.INT_MAX)) : 0;
         this._updateParticles(0, this._particlesAll);
