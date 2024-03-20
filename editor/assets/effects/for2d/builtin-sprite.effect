@@ -75,6 +75,7 @@ CCProgram sprite-fs %{
 
   vec4 frag () {
     vec4 o = vec4(1, 1, 1, 1);
+    o *= color;
 
     #if USE_TEXTURE
       o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
@@ -84,7 +85,6 @@ CCProgram sprite-fs %{
       #endif
     #endif
 
-    o *= color;
     ALPHA_TEST(o);
     return o;
   }
