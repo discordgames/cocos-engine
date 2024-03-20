@@ -222,7 +222,7 @@ export default class VelocityOvertimeModule extends ParticleModuleBase {
         const randX = isCurveTwoValues(this.x) ? pseudoRandom(p.randomSeed ^ VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
         const randY = isCurveTwoValues(this.y) ? pseudoRandom(p.randomSeed ^ VELOCITY_Y_OVERTIME_RAND_OFFSET) : 0;
         const randZ = isCurveTwoValues(this.z) ? pseudoRandom(p.randomSeed ^ VELOCITY_Z_OVERTIME_RAND_OFFSET) : 0;
-        //const randSpeed = isCurveTwoValues(this.speedModifier) ? pseudoRandom(p.randomSeed + VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
+        const randSpeed = isCurveTwoValues(this.speedModifier) ? pseudoRandom(p.randomSeed + VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
 
         const vel = Vec3.set(_temp_v3,
             this.x.evaluate(normalizedTime, randX)!,
@@ -232,7 +232,7 @@ export default class VelocityOvertimeModule extends ParticleModuleBase {
             Vec3.transformQuat(vel, vel, this.rotation);
         }
         // add linear velocity
-        const speed = this.speedModifier.evaluate(normalizedTime, pseudoRandom(p.randomSeed + VELOCITY_X_OVERTIME_RAND_OFFSET))!;
+        const speed = this.speedModifier.evaluate(normalizedTime, randSpeed)!;
         Vec3.add(p.animatedVelocity, p.animatedVelocity, vel.multiplyScalar(speed));
 
         // calculate orbital velocity
