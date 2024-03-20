@@ -56,7 +56,7 @@ export default class VelocityOvertimeModule extends ParticleModuleBase {
      * @zh 是否启用。
      */
     @displayOrder(0)
-    public get enable () {
+    public get enable (): boolean {
         return this._enable;
     }
 
@@ -222,7 +222,7 @@ export default class VelocityOvertimeModule extends ParticleModuleBase {
         const randX = isCurveTwoValues(this.x) ? pseudoRandom(p.randomSeed ^ VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
         const randY = isCurveTwoValues(this.y) ? pseudoRandom(p.randomSeed ^ VELOCITY_Y_OVERTIME_RAND_OFFSET) : 0;
         const randZ = isCurveTwoValues(this.z) ? pseudoRandom(p.randomSeed ^ VELOCITY_Z_OVERTIME_RAND_OFFSET) : 0;
-        const randSpeed = isCurveTwoValues(this.speedModifier) ? pseudoRandom(p.randomSeed + VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
+        //const randSpeed = isCurveTwoValues(this.speedModifier) ? pseudoRandom(p.randomSeed + VELOCITY_X_OVERTIME_RAND_OFFSET) : 0;
 
         const vel = Vec3.set(_temp_v3,
             this.x.evaluate(normalizedTime, randX)!,
@@ -237,8 +237,8 @@ export default class VelocityOvertimeModule extends ParticleModuleBase {
 
         // calculate orbital velocity
         const offX = this.offsetX.evaluate(normalizedTime, pseudoRandom(p.randomSeed ^ VELOCITY_X_OVERTIME_RAND_OFFSET))!;
-        const offY = this.offsetY.evaluate(normalizedTime, pseudoRandom(p.randomSeed ^ VELOCITY_X_OVERTIME_RAND_OFFSET))!;
-        const offZ = this.offsetZ.evaluate(normalizedTime, pseudoRandom(p.randomSeed ^ VELOCITY_X_OVERTIME_RAND_OFFSET))!;
+        const offY = this.offsetY.evaluate(normalizedTime, pseudoRandom(p.randomSeed ^ VELOCITY_Y_OVERTIME_RAND_OFFSET))!;
+        const offZ = this.offsetZ.evaluate(normalizedTime, pseudoRandom(p.randomSeed ^ VELOCITY_Z_OVERTIME_RAND_OFFSET))!;
 
         const offset = Vec3.set(_temp_v3, offX, offY, offZ);
 
