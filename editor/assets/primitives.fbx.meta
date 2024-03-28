@@ -23,22 +23,6 @@
         "triangleCount": 2380
       }
     },
-    "8d883": {
-      "importer": "gltf-material",
-      "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@8d883",
-      "displayName": "",
-      "id": "8d883",
-      "name": "lambert1.material",
-      "userData": {
-        "gltfIndex": 0
-      },
-      "ver": "1.0.14",
-      "imported": true,
-      "files": [
-        ".json"
-      ],
-      "subMetas": {}
-    },
     "801ec": {
       "importer": "gltf-mesh",
       "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@801ec",
@@ -164,6 +148,22 @@
         "gltfIndex": 7,
         "triangleCount": 12
       }
+    },
+    "8d883": {
+      "importer": "gltf-material",
+      "uuid": "1263d74c-8167-4928-91a6-4e2672411f47@8d883",
+      "displayName": "",
+      "id": "8d883",
+      "name": "lambert1.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
     },
     "aae0f": {
       "importer": "gltf-scene",
