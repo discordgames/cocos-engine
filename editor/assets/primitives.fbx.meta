@@ -211,7 +211,7 @@
         "1263d74c-8167-4928-91a6-4e2672411f47@a804a"
       ],
       "materials": [
-        "e8e46163-baa2-4c01-a0ba-8b67a74a83a3"
+        "1263d74c-8167-4928-91a6-4e2672411f47@8d883"
       ],
       "scenes": [
         "1263d74c-8167-4928-91a6-4e2672411f47@aae0f"
@@ -245,8 +245,6 @@
           "faceCount": 0.1
         }
       ]
-    },
-    "dumpMaterials": true,
-    "materialDumpDir": "db://assets/game/art/materials/export_trash_mats"
+    }
   }
 }
