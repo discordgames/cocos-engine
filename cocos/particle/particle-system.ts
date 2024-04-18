@@ -1113,8 +1113,6 @@ export class ParticleSystem extends ModelRenderer {
         if (this._trailModule) this._trailModule.onDisable();
         if (this._boundingBox) {
             this._boundingBox = null;
-            //[dcg phulcy 2/13/24] This is used for applying a "delta" to the bounding box for culling. When the component is disabled
-            // this delta tracking needs to be reset when the bounding box is rebuilt and the node possibly moved while inactive.
             this._oldPos = null;
         }
         if (this._culler) {
