@@ -22,11 +22,5 @@
         "iterator": "cpp"
     },
     "cmake.configureOnOpen": false,
-    "[javascript]": {
-        "editor.formatOnSave": false
-    },
-    "[typescript]": {
-        "editor.formatOnSave": false,
-    },
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
 }
