@@ -177,6 +177,12 @@ export class PostProcessBuilder implements PipelineBuilder  {
             if (!camera.scene) {
                 continue;
             }
+
+            //[dcg phulcy 5/29/2024] Skip rendering a camera that has too small of a resolution.
+            //This currently happens when transitioning out of PiP inside Discord because there is a frame where the width/height of the canvas is set to 0.
+            if (camera.width <= 10 || camera.height <= 10) {
+                return;
+            }
             ppl.update(camera);
             if (i === (cameras.length - 1)) {
                 passContext.isFinalCamera = true;
