@@ -137,6 +137,7 @@ export class EditBoxImpl extends EditBoxImplBase {
             _currentEditBoxImpl = null;
         }
 
+        View.instance.off('canvas-resize', this._resize, this);
         this._delegate = null;
     }
 

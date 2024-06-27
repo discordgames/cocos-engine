@@ -92,6 +92,14 @@ export class ParticleSystem extends ModelRenderer {
     }
 
     /**
+     * @zh 。
+     */
+        @serializable
+        @displayOrder(10)
+        @tooltip('i18n:particle_system.randomSeedOverride')
+        public randomSeedOverride = 0;
+
+    /**
      * @en The initial color of the particle.
      * @zh 粒子初始颜色。
      */
@@ -1109,6 +1117,9 @@ export class ParticleSystem extends ModelRenderer {
         if (this._trailModule) this._trailModule.onDisable();
         if (this._boundingBox) {
             this._boundingBox = null;
+            //[dcg phulcy 2/13/24] This is used for applying a "delta" to the bounding box for culling. When the component is disabled
+            // this delta tracking needs to be reset when the bounding box is rebuilt and the node possibly moved while inactive.
+            this._oldPos = null;
         }
         if (this._culler) {
             this._culler.clear();
@@ -1391,7 +1402,7 @@ export class ParticleSystem extends ModelRenderer {
             particle.startLifetime = this.startLifetime.evaluate(loopDelta, rand)! + dt;
             particle.remainingLifetime = particle.startLifetime;
 
-            particle.randomSeed = randomRangeInt(0, 233280);
+            particle.randomSeed = this.randomSeedOverride === 0 ? randomRangeInt(0, 233280) : this.randomSeedOverride;
             particle.loopCount++;
 
             this.processor.setNewParticle(particle);
