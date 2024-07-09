@@ -97,7 +97,7 @@ export class ParticleSystem extends ModelRenderer {
         @serializable
         @displayOrder(10)
         @tooltip('i18n:particle_system.randomSeedOverride')
-        public randomSeedOverride = 0;
+    public randomSeedOverride = 0;
 
     /**
      * @en The initial color of the particle.
@@ -107,7 +107,7 @@ export class ParticleSystem extends ModelRenderer {
     @serializable
     @displayOrder(8)
     @tooltip('i18n:particle_system.startColor')
-    public startColor = new GradientRange();
+        public startColor = new GradientRange();
 
     /**
      * @en The space of particle scaling.
@@ -1386,7 +1386,7 @@ export class ParticleSystem extends ModelRenderer {
             // apply startSize.
             if (this.startSize3D) {
                 Vec3.set(particle.startSize, this.startSizeX.evaluate(loopDelta, rand)!,
-                    this.startSizeY.evaluate(loopDelta, rand)!,
+this.startSizeY.evaluate(loopDelta, rand)!,
                     this.startSizeZ.evaluate(loopDelta, rand)!);
             } else {
                 Vec3.set(particle.startSize, this.startSizeX.evaluate(loopDelta, rand)!, 1, 1);
@@ -1470,8 +1470,10 @@ export class ParticleSystem extends ModelRenderer {
     }
 
     private _resetPosition (): void {
-        this.node.getWorldPosition(this._oldWPos);
-        Vec3.copy(this._curWPos, this._oldWPos);
+        if (this.node && this.node.isValid) {
+            this.node.getWorldPosition(this._oldWPos);
+            Vec3.copy(this._curWPos, this._oldWPos);
+        }
     }
 
     private addSubEmitter (subEmitter): void {
