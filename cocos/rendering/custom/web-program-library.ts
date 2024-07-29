@@ -25,18 +25,18 @@
 
 /* eslint-disable max-len */
 import { EffectAsset } from '../../asset/assets';
-import { Attribute, DescriptorSetLayout, DescriptorType, DESCRIPTOR_BUFFER_TYPE, DESCRIPTOR_SAMPLER_TYPE, Device, MemoryAccessBit, PipelineLayout, PipelineLayoutInfo, Shader, ShaderInfo, ShaderStage, ShaderStageFlagBit, Type, Uniform, UniformBlock, UniformInputAttachment, UniformSampler, UniformSamplerTexture, UniformStorageBuffer, UniformStorageImage, UniformTexture, deviceManager, PipelineState, DescriptorSetLayoutInfo, DescriptorSetInfo } from '../../gfx';
-import { genHandles, getActiveAttributes, getCombinationDefines, getShaderInstanceName, getSize, getVariantKey, populateMacros, prepareDefines } from '../../render-scene/core/program-utils';
+import { assert, error } from '../../core/platform/debug';
+import { Attribute, DESCRIPTOR_BUFFER_TYPE, DESCRIPTOR_SAMPLER_TYPE, DescriptorSetInfo, DescriptorSetLayout, DescriptorSetLayoutInfo, DescriptorType, Device, deviceManager, MemoryAccessBit, PipelineLayout, PipelineLayoutInfo, PipelineState, Shader, ShaderInfo, ShaderStage, ShaderStageFlagBit, Type, Uniform, UniformBlock, UniformInputAttachment, UniformSampler, UniformSamplerTexture, UniformStorageBuffer, UniformStorageImage, UniformTexture } from '../../gfx';
 import { getDeviceShaderVersion, MacroRecord } from '../../render-scene';
 import { IProgramInfo } from '../../render-scene/core/program-lib';
+import { genHandles, getActiveAttributes, getCombinationDefines, getShaderInstanceName, getSize, getVariantKey, populateMacros, prepareDefines } from '../../render-scene/core/program-utils';
+import { IDescriptorSetLayoutInfo, localDescriptorSetLayout, UBOSkinning } from '../define';
 import { DescriptorBlockData, DescriptorData, DescriptorSetData, DescriptorSetLayoutData, LayoutGraphData, LayoutGraphDataValue, PipelineLayoutData, RenderPhaseData, ShaderProgramData } from './layout-graph';
+import { ENABLE_SUBPASS, generateConstantMacros, getCustomPassID, getCustomPhaseID, getCustomSubpassID, getDescriptorName, getDescriptorNameID, getDescriptorSetLayout, getDescriptorTypeOrder, getEmptyDescriptorSetLayout, getEmptyPipelineLayout, getOrCreateDescriptorID, getOrCreateDescriptorSetLayout, getProgramID, initializeDescriptorSetLayoutInfo, INVALID_ID, makeDescriptorSetLayoutData, populatePipelineLayoutInfo } from './layout-graph-utils';
+import { PipelineRuntime } from './pipeline';
 import { ProgramLibrary, ProgramProxy } from './private';
 import { DescriptorTypeOrder, UpdateFrequency } from './types';
 import { ProgramGroup, ProgramInfo } from './web-types';
-import { getCustomPassID, getCustomPhaseID, getOrCreateDescriptorSetLayout, getEmptyDescriptorSetLayout, getEmptyPipelineLayout, initializeDescriptorSetLayoutInfo, makeDescriptorSetLayoutData, getDescriptorSetLayout, getOrCreateDescriptorID, getDescriptorTypeOrder, getProgramID, getDescriptorNameID, getDescriptorName, INVALID_ID, ENABLE_SUBPASS, getCustomSubpassID, generateConstantMacros, populatePipelineLayoutInfo } from './layout-graph-utils';
-import { assert, error } from '../../core/platform/debug';
-import { IDescriptorSetLayoutInfo, UBOSkinning, localDescriptorSetLayout } from '../define';
-import { PipelineRuntime } from './pipeline';
 
 const _setIndex = [2, 1, 3, 0];
 
@@ -900,7 +900,11 @@ export class WebProgramLibrary implements ProgramLibrary {
 
         // update ubo
         // tips: for compatibility with old version, when maxVertexUniformVectors is 128, maxJoints = 30
-        let maxJoints: number = (this.device.capabilities.maxVertexUniformVectors - 38) / 3;
+        // DG jsh - Don't allow fractional numbers to get into the shader constant.
+        //              This looks to have been fixed in 3.8.4 and can be removed after it becomes publicly
+        //              available.
+        //let maxJoints: number = (this.device.capabilities.maxVertexUniformVectors - 38) / 3;
+        let maxJoints: number = Math.floor((this.device.capabilities.maxVertexUniformVectors - 38) / 3);
         maxJoints = maxJoints < 256 ? maxJoints : 256;
         UBOSkinning.initLayout(maxJoints);
 
