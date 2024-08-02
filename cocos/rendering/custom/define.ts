@@ -775,6 +775,7 @@ export class ShadowInfo {
     }
 }
 
+// DG jsh - Skip shadow passes for lights the camera can't possibly see
 function dgDoesLightAffectCamera (camera: Camera, light: Light): boolean {
     if (camera.visibility & light.visibility) {
         return true;
@@ -810,6 +811,7 @@ export function buildShadowPasses (cameraName: string, camera: Camera, ppl: Basi
     // build shadow map
     const mapWidth = shadows.size.x;
     const mapHeight = shadows.size.y;
+    // DG jsh - Skip shadow passes for lights the camera can't possibly see
     if (mainLight && dgDoesLightAffectCamera(camera, mainLight) && mainLight.shadowEnabled) {
         shadowInfo.mainLightShadowNames[0] = `MainLightShadow${cameraName}`;
         if (mainLight.shadowFixedArea) {
@@ -841,6 +843,7 @@ export function buildShadowPasses (cameraName: string, camera: Camera, ppl: Basi
 
     for (let l = 0; l < shadowInfo.validLights.length; l++) {
         const light = shadowInfo.validLights[l];
+        // DG jsh - Skip shadow passes for lights the camera can't possibly see
         if (dgDoesLightAffectCamera(camera, light)) {
             const passName = `SpotLightShadow${l.toString()}${cameraName}`;
             shadowInfo.spotLightShadowNames[l] = passName;
