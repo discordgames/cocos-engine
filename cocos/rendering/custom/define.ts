@@ -775,6 +775,14 @@ export class ShadowInfo {
     }
 }
 
+function dgDoesLightAffectCamera (camera: Camera, light: Light): boolean {
+    if (camera.visibility & light.visibility) {
+        return true;
+    }
+
+    return false;
+}
+
 export function buildShadowPasses (cameraName: string, camera: Camera, ppl: BasicPipeline): ShadowInfo {
     validPunctualLightsCulling(ppl, camera);
     const pipeline = ppl;
@@ -802,7 +810,7 @@ export function buildShadowPasses (cameraName: string, camera: Camera, ppl: Basi
     // build shadow map
     const mapWidth = shadows.size.x;
     const mapHeight = shadows.size.y;
-    if (mainLight && mainLight.shadowEnabled) {
+    if (mainLight && dgDoesLightAffectCamera(camera, mainLight) && mainLight.shadowEnabled) {
         shadowInfo.mainLightShadowNames[0] = `MainLightShadow${cameraName}`;
         if (mainLight.shadowFixedArea) {
             buildShadowPass(
@@ -833,17 +841,19 @@ export function buildShadowPasses (cameraName: string, camera: Camera, ppl: Basi
 
     for (let l = 0; l < shadowInfo.validLights.length; l++) {
         const light = shadowInfo.validLights[l];
-        const passName = `SpotLightShadow${l.toString()}${cameraName}`;
-        shadowInfo.spotLightShadowNames[l] = passName;
-        buildShadowPass(
-            passName,
-            ppl,
-            camera,
-            light,
-            0,
-            mapWidth,
-            mapHeight,
-        );
+        if (dgDoesLightAffectCamera(camera, light)) {
+            const passName = `SpotLightShadow${l.toString()}${cameraName}`;
+            shadowInfo.spotLightShadowNames[l] = passName;
+            buildShadowPass(
+                passName,
+                ppl,
+                camera,
+                light,
+                0,
+                mapWidth,
+                mapHeight,
+            );
+        }
     }
     return shadowInfo;
 }
