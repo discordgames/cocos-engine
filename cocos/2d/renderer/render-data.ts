@@ -575,8 +575,8 @@ export class MeshRenderData extends BaseRenderData {
      */
     public indexRange = 0;
     // only for graphics
-    public lastFilledIndex = 0;
-    public lastFilledVertex = 0;
+    public lastFilledIndex = -1;
+    public lastFilledVertex = -1;
 
     public frame;
 
@@ -695,8 +695,8 @@ export class MeshRenderData extends BaseRenderData {
         this.vertexRange = 0;
         this.indexStart = 0;
         this.indexRange = 0;
-        this.lastFilledIndex = 0;
-        this.lastFilledVertex = 0;
+        this.lastFilledIndex = -1;
+        this.lastFilledVertex = -1;
         this.material = null;
         this.freeIAPool();
     }
