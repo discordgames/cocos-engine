@@ -635,13 +635,13 @@ export class Graphics extends UIRenderer {
             const vertexBuffer = gfxDevice.createBuffer(new BufferInfo(
                 BufferUsageBit.VERTEX | BufferUsageBit.TRANSFER_DST,
                 MemoryUsageBit.DEVICE,
-                65535 * stride,
+                8 * stride,
                 stride,
             ));
             const indexBuffer = gfxDevice.createBuffer(new BufferInfo(
                 BufferUsageBit.INDEX | BufferUsageBit.TRANSFER_DST,
                 MemoryUsageBit.DEVICE,
-                65535 * Uint16Array.BYTES_PER_ELEMENT * 2,
+                8 * Uint16Array.BYTES_PER_ELEMENT * 2,
                 Uint16Array.BYTES_PER_ELEMENT,
             ));
 
@@ -673,9 +673,17 @@ export class Graphics extends UIRenderer {
             }
 
             const vb = new Float32Array(renderData.vData.buffer, 0, renderData.vertexStart * componentPerVertex);
+            if (ia.vertexBuffers[0].size < vb.byteLength) {
+                ia.vertexBuffers[0].resize(vb.byteLength);
+            }
             ia.vertexBuffers[0].update(vb);
             ia.vertexCount = renderData.vertexStart;
             const ib = new Uint16Array(renderData.iData.buffer, 0, renderData.indexStart);
+
+            if (ia.indexBuffer!.size < ib.byteLength) {
+                ia.indexBuffer!.resize(ib.byteLength);
+            }
+
             ia.indexBuffer!.update(ib);
             ia.indexCount = renderData.indexStart;
             renderData.lastFilledVertex = renderData.vertexStart;
