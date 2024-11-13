@@ -48,7 +48,9 @@ const REGEX = /^(?:\w+:\/\/|\.+\/).+/;
 
 const downloadImage = (url: string, options: Record<string, any>, onComplete: ((err: Error | null, data?: any) => void)): void => {
     // if createImageBitmap is valid, we can transform blob to ImageBitmap. Otherwise, just use HTMLImageElement to load
-    const func = sys.hasFeature(sys.Feature.IMAGE_BITMAP) && cclegacy.assetManager.allowImageBitmap ? downloadBlob : downloadDomImage;
+    // DG jsh - If the options are setting xhrHeader then don't use the DomImage version if we can help it.
+    //const func = sys.hasFeature(sys.Feature.IMAGE_BITMAP) && cclegacy.assetManager.allowImageBitmap ? downloadBlob : downloadDomImage;
+    const func = sys.hasFeature(sys.Feature.IMAGE_BITMAP) && (cclegacy.assetManager.allowImageBitmap || options.xhrHeader) ? downloadBlob : downloadDomImage;
     func(url, options, onComplete);
 };
 
