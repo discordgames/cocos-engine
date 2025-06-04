@@ -23,11 +23,11 @@
  THE SOFTWARE.
 */
 
+import { legacyCC } from './global-exports';
+import { assertID, errorID, logID, warnID } from './platform/debug';
+import { System } from './system';
 import { IDGenerator } from './utils/id-generator';
 import { createMap } from './utils/js';
-import { System } from './system';
-import { legacyCC } from './global-exports';
-import { errorID, warnID, logID, assertID } from './platform/debug';
 
 const MAX_POOL_SIZE = 20;
 
@@ -436,9 +436,11 @@ export class Scheduler extends System {
      */
     public update (dt: number): void {
         this._updateHashLocked = true;
-        if (this._timeScale !== 1) {
-            dt *= this._timeScale;
-        }
+        //[dcg dcalla 4/9/2025] start - removing this as dt is now affected by timescale in game.ts
+        // if (this._timeScale !== 1) {
+        //     dt *= this._timeScale;
+        // }
+        //[dcg dcalla 4/9/2025] end
 
         let i: number;
         let list: ListEntry[];
