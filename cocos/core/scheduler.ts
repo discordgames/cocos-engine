@@ -437,9 +437,9 @@ export class Scheduler extends System {
     public update (dt: number): void {
         this._updateHashLocked = true;
         //[dcg dcalla 4/9/2025] start - removing this as dt is now affected by timescale in game.ts
-        // if (this._timeScale !== 1) {
-        //     dt *= this._timeScale;
-        // }
+        if (this._timeScale !== 1) {
+            dt *= this._timeScale;
+        }
         //[dcg dcalla 4/9/2025] end
 
         let i: number;
