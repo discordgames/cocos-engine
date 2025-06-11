@@ -1014,7 +1014,7 @@ export class Game extends EventTarget {
 
         if (useFixedDeltaTime) {
             this._startTime = performance.now();
-            return (this.frameTime / 1000) * timeScale; //[dcg dcalla 4/9/2025] fix for not respecting timescale
+            return (this.frameTime / 1000);// * timeScale; //[dcg dcalla 4/9/2025] fix for not respecting timescale
         }
 
         const now = performance.now();
@@ -1025,7 +1025,7 @@ export class Game extends EventTarget {
         this._startTime = now;
 
         //[dcg dcalla 4/9/2025] start - fix for not respecting timescale
-        this._deltaTime *= timeScale;
+        //this._deltaTime *= timeScale;
         //[dcg dcalla 4/9/2025] end
 
         return this._deltaTime;
