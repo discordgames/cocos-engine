@@ -61,10 +61,7 @@ import { releaseManager } from '../asset/asset-manager/release-manager';
  * 它创建和处理主窗口并且管理什么时候执行场景。
  */
 export class Director extends EventTarget {
-    //[dcg dcalla 4/9/2025] Start - the existence of this var will inform the
-    //  game about how it should expect Timescale to be handled
-    public static readonly HAS_CG_TIMESCALE_FIX = true;
-    //[dcg dcalla 4/9/2025] End
+    
 
     /**
      * @en The event which will be triggered when the singleton of Director initialized.
